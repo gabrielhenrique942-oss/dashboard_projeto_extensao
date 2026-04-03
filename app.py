@@ -1,11 +1,18 @@
 import streamlit as st
 from src.pipeline import pipeline
 from src.metrics import resumo_atuarial
-from src.visuals import *
+from src.visuals import (
+    grafico_receita_despesa,
+    grafico_margem,
+    grafico_beneficiarios,
+    grafico_custo,
+    grafico_sinistralidade,
+    grafico_piramide_etaria
+)
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Dashboard Atuarial - ANS", layout="wide")
 
-st.title("📊 Dashboard Projeto - Extensao")
+st.title("📊 Dashboard Atuarial - ANS")
 
 st.write("""
 Este dashboard apresenta uma análise atuarial e financeira com base em dados do setor de saúde suplementar,
@@ -15,7 +22,7 @@ compreensão das relações entre beneficiários, receitas, despesas assistencia
 das operadoras analisadas.
 """)
 
-# Pipeline
+# Carregamento dos dados
 df = pipeline()
 
 # Filtros
@@ -28,7 +35,7 @@ if df_filtrado.empty:
     st.warning("Nenhum dado encontrado para o filtro selecionado.")
     st.stop()
 
-# Métricas
+# Indicadores
 st.subheader("Indicadores Atuariais")
 st.write("""
 **Sinistralidade:** proporção da receita utilizada para despesas assistenciais.  
@@ -43,8 +50,10 @@ col1.metric("Sinistralidade", f"{resumo['sinistralidade_media']:.2%}")
 col2.metric("Custo Médio", f"R$ {resumo['custo_medio']:.2f}")
 col3.metric("Receita Média", f"R$ {resumo['receita_media']:.2f}")
 
+# Ordenação para melhor leitura
 df = df.sort_values("sinistralidade", ascending=False)
 
+# Visualizações
 st.subheader("Visualizações")
 
 col1, col2 = st.columns(2)
@@ -81,11 +90,20 @@ st.caption(
     "principais indicadores de risco e sustentabilidade no contexto atuarial."
 )
 
+# Pirâmide etária
+st.subheader("Pirâmide Etária")
+st.plotly_chart(grafico_piramide_etaria(), use_container_width=True)
+st.caption(
+    "A pirâmide etária representa, de forma ilustrativa, a distribuição populacional por faixas de idade e sexo. "
+    "No contexto atuarial, estruturas etárias mais envelhecidas tendem a estar associadas a maior utilização de "
+    "serviços assistenciais e maior pressão sobre custos."
+)
+
 # Ranking
 st.subheader("Ranking de Sinistralidade")
-st.dataframe(df[["operadora", "sinistralidade"]])
+st.dataframe(df[["operadora", "sinistralidade"]], use_container_width=True)
 
-# Narrativa analítica
+# Análise final
 st.subheader("Análise Atuarial e Financeira")
 
 st.write("""
@@ -103,6 +121,10 @@ maior pressão financeira e menor folga operacional, afetando a sustentabilidade
 O custo médio por beneficiário complementa essa avaliação ao permitir comparar diferenças de
 eficiência entre as operadoras. Já a margem operacional contribui para identificar a capacidade
 de geração de resultado após a cobertura das despesas assistenciais.
+
+A inclusão da pirâmide etária reforça a perspectiva social e atuarial do dashboard, ao destacar
+como a composição etária da população pode influenciar a demanda por serviços de saúde e o comportamento
+dos custos assistenciais no longo prazo.
 
 Dessa forma, o dashboard organiza informações relevantes para a interpretação atuarial e financeira
 do setor, oferecendo apoio à análise de risco, ao acompanhamento da sustentabilidade e à compreensão
