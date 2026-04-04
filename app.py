@@ -10,16 +10,30 @@ from src.visuals import (
     grafico_piramide_etaria
 )
 
-st.set_page_config(page_title="Dashboard Atuarial - ANS", layout="wide")
+st.set_page_config(page_title="Projeto de Extensão", layout="wide")
 
-st.title("📊 Dashboard Atuarial - ANS")
+st.title("📊 Projeto de Extensão")
 
 st.write("""
-Este dashboard apresenta uma análise atuarial e financeira com base em dados do setor de saúde suplementar,
-utilizando informações da Agência Nacional de Saúde Suplementar (ANS). A aplicação foi estruturada para
-permitir a visualização de indicadores relevantes, apoiar a interpretação dos resultados e facilitar a
-compreensão das relações entre beneficiários, receitas, despesas assistenciais e sustentabilidade operacional
-das operadoras analisadas.
+st.write("""
+Este Projeto apresenta uma análise atuarial e financeira aplicada ao setor de saúde suplementar brasileiro,
+com base em dados da Agência Nacional de Saúde Suplementar (ANS). A proposta consiste em integrar informações
+relevantes sobre beneficiários, receitas e despesas assistenciais, permitindo uma leitura estruturada do desempenho
+econômico e do nível de risco das operadoras analisadas.
+
+A aplicação foi desenvolvida com o objetivo de apoiar a interpretação de indicadores fundamentais, como
+sinistralidade, custo médio por beneficiário e margem operacional, os quais são amplamente utilizados no
+contexto atuarial para avaliação da sustentabilidade financeira e do equilíbrio técnico das carteiras de saúde.
+
+Além disso, o Projeto incorpora elementos analíticos que possibilitam identificar padrões e relações entre
+variáveis-chave, contribuindo para uma compreensão mais aprofundada do comportamento dos custos assistenciais e
+dos desafios associados à gestão de risco no setor. A inclusão de uma pirâmide etária, ainda que em caráter
+ilustrativo, reforça a dimensão social da análise, evidenciando o impacto da estrutura demográfica sobre a demanda
+por serviços de saúde.
+
+Dessa forma, a ferramenta proposta oferece suporte à análise crítica e à tomada de decisão, integrando conceitos
+atuariais e financeiros em uma interface interativa, clara e orientada à interpretação de dados.
+""")
 """)
 
 # Carregamento dos dados
